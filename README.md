@@ -1,28 +1,22 @@
-# Rutor Glacier ML Monitoring Project
+# Rutor Glacier temporal classification, comparing two different ML approaches
 
-## Advanced Machine Learning for Alpine Glacier Change Detection Using Earth Observation Data
+## Project Overview
 
-### Project Overview
+Analysis of glacier retreat in the Italian Alps using Random Forest and Multi-Layer Perceptron classification of Landsat imagery. The study tracks ice loss, vegetation expansion, and environmental changes over 40 years.
 
-This project analyzes the temporal evolution of Rutor Glacier in the Italian Alps over a 40-year period (1984-2024) using satellite remote sensing and machine learning classification techniques. The study demonstrates significant glacier retreat and environmental changes using state-of-the-art Earth Observation methodologies.
+## Key Results
 
-### Key Objectives
+- **99% accuracy** (Random Forest) | 98% accuracy MLP
+- **50% ice loss** from 1984 to 2024
+- **Vegetation increament and Water body creation** in exposed area
+- **Cross-validation** on Monte-Rosa (96.9%)and Monte-Bianco (78.4%)
 
-- **Temporal Classification:** Track glacier changes across 8 time periods (5-year intervals)
-- **Machine Learning Comparison:** Evaluate Random Forest vs Multi-Layer Perceptron performance
-- **Climate Impact Assessment:** Quantify ice loss and environmental transformation
-- **Methodology Validation** Test model transferability across different Alpine glaciers
+## Methodology
 
-### Technical Innovation
-
-- **Overall Accuracy:** 99% (Random Forest) | 98% (MLP)
-- **Ice Loss:** Significant retreat observed from 1984-2024
-- **Environmental Changes:** Increased vegetation and water areas
-- **Model Performance:** RF outperformed MLP for glacier classification
-- **Cross-Validation:** 96.9% accuracy on Monte Rosa, 78.4% on Mont Blanc
-
-### Study Area
-
+### Data & Classes
+- **Satellite**: Landsat 5 and 8 (1984-2024, late summer)
+- **Resolution**: 30m, 10 spectral bands (7 spectral band + 3 spectral indices(NDWI, NDVI, NDSI) )
+- 
 **Rutor Glacier, Graian Alps** (45.67°N, 6.98°E)
 - Elevation range: 2,400-3,400m
 - Area: ~8 km² (historically)
