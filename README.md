@@ -4,21 +4,22 @@
 
 ### Project Overview
 
-This project applies cutting-edge machine learning techniques to monitor the Rutor Glacier in the Italian Alps using multi-temporal Landsat satellite imagery from Google Earth Engine. The study compares traditional Random Forest ensemble methods with modern Convolutional Neural Networks (CNN) for glacier classification and change detection over the period 2013-2023.
+This project analyzes the temporal evolution of Rutor Glacier in the Italian Alps over a 40-year period (1984-2024) using satellite remote sensing and machine learning classification techniques. The study demonstrates significant glacier retreat and environmental changes using state-of-the-art Earth Observation methodologies.
 
 ### Key Objectives
 
-- **Develop advanced classification algorithms** to distinguish glacier features (clean ice, debris-covered ice, snow, rock, water, vegetation)
-- **Compare ML approaches**: Traditional Random Forest vs. modern CNN for spectral pattern recognition
-- **Quantify glacier retreat** during the last decade using late-summer imagery when snow coverage is minimal
-- **Create operational framework** for automated glacier monitoring using Earth Observation data
+- **Temporal Classification:** Track glacier changes across 8 time periods (5-year intervals)
+- **Machine Learning Comparison:** Evaluate Random Forest vs Multi-Layer Perceptron performance
+- **Climate Impact Assessment:** Quantify ice loss and environmental transformation
+- **Methodology Validation** Test model transferability across different Alpine glaciers
 
 ### Technical Innovation
 
-- **Custom 1D CNN architecture** adapted for multispectral Landsat data analysis
-- **Hybrid feature engineering** combining spectral indices (NDSI, NDVI, NDWI) with thermal and topographic data
-- **Advanced validation framework** with temporal cross-validation and uncertainty quantification
-- **Google Earth Engine integration** with local Python ML pipeline for scalable processing
+- **Overall Accuracy:** 99% (Random Forest) | 98% (MLP)
+- **Ice Loss:** Significant retreat observed from 1984-2024
+- **Environmental Changes:** Increased vegetation and water areas
+- **Model Performance:** RF outperformed MLP for glacier classification
+- **Cross-Validation:** 96.9% accuracy on Monte Rosa, 78.4% on Mont Blanc
 
 ### Study Area
 
@@ -30,29 +31,64 @@ This project applies cutting-edge machine learning techniques to monitor the Rut
 
 ### Methodology Highlights
 
-1. **Data Collection**: Multi-temporal Landsat 8-9 Surface Reflectance (2013-2023)
-2. **Preprocessing**: Cloud masking, atmospheric correction, spectral index calculation
-3. **Classification**: Comparative analysis of Random Forest vs CNN performance
-4. **Change Detection**: Post-classification comparison and statistical trend analysis
-5. **Validation**: Cross-validation with high-resolution imagery and literature data
+1. **Data Collection**: Multi-spectral Landsat 5 TM & Landsat 8 OLI/TIRS
+  1.1 Temporal Coverage: August 1984 - September 2024
+  1.2 Spatial resolution: 30m
+2. **Preprocessing**
+  2.1 Cloud masking
+  2.2 spectral index calculation
+   
+         // Cloud masking and spectral indices calculation
+        var ndsi = optical.normalizedDifference(['Green', 'SWIR1']).rename('NDSI');
+        var ndvi = optical.normalizedDifference(['NIR', 'Red']).rename('NDVI');
+        var ndwi = optical.normalizedDifference(['Green', 'NIR']).rename('NDWI');
+3. **Classification**:
+     (0)- Clean ice
+     (1)- Debris-covered ice
+     (2)- Water
+     (3)- Vegetation
+     (4)- Rock
+4. **Machine learning implementation**
+   Random Forest (Google earth engine)
 
-### Expected Outcomes
+       ''' javascript
+       var classifier = ee.Classifier.smileRandomForest({
+        numberOfTrees: 110,
+        seed: 42
+       }).train({
+          features: trainingSet,
+          classProperty: 'class',
+          inputProperties: bands
+       });
+   Multi-Layer Perceptron (Google Colab)
 
-- **High-accuracy glacier classification** maps with uncertainty bounds
-- **Quantitative retreat analysis** including area loss rates and terminus position changes
-- **Algorithm performance comparison** demonstrating CNN advantages for complex spectral patterns
-- **Reproducible methodology** applicable to other Alpine glaciers for climate change monitoring
+       '''python 
+       mlp_classifier = MLPClassifier(
+        hidden_layer_sizes=(128, 64, 32),
+        activation='relu',
+        solver='adam',
+        alpha=0.001,
+        max_iter=1000,
+        random_state=42
+       )
 
-### Technical Stack
+### Key results
 
-- **Google Earth Engine**: Cloud-based satellite data processing
-- **Python**: Machine learning pipeline (TensorFlow, scikit-learn, pandas)
-- **GitHub**: Version control and project management
-- **Jupyter Notebooks**: Interactive analysis and visualization
+- **Randome Forest accuracy**: 99.1%, Overfitting 0.9%
+- **MLP Single-Layer accuracy**: 96.9%, Overfitting 0.7%
+- **MLP Double-Layer accuracy**: 97.5%, Overfitting 1.8%
+- **MLP Triple-Layer accuracy**: 98.4%, Overfitting 0.9%
+  
+### Feature importance
 
-### Academic Contribution
+- NDWI: 27%
+- NDVI: 18%
+- Thermal: 9%
 
-This project demonstrates the application of advanced machine learning techniques to real-world environmental monitoring challenges, bridging traditional remote sensing methods with modern deep learning approaches for climate change research.
+### Temporal changes
+
+- **Total ice lost**: ~50%
+- New water bodies formed 
 
 ---
 
