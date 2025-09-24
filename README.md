@@ -16,7 +16,7 @@ Analysis of glacier retreat in the Italian Alps using Random Forest and Multi-La
 ### Data & Classes
 - **Satellite**: Landsat 5 and 8 (1984-2024, late summer)
 - **Resolution**: 30m, 10 spectral bands (7 spectral band + 3 spectral indices(NDWI, NDVI, NDSI) )
-- 
+
 **Rutor Glacier, Graian Alps** (45.67°N, 6.98°E)
 - Elevation range: 2,400-3,400m
 - Area: ~8 km² 
@@ -37,11 +37,12 @@ Analysis of glacier retreat in the Italian Alps using Random Forest and Multi-La
         var ndvi = optical.normalizedDifference(['NIR', 'Red']).rename('NDVI');
         var ndwi = optical.normalizedDifference(['Green', 'NIR']).rename('NDWI');
 3. **Classification**:
-     (0)- Clean ice
-     (1)- Debris-covered ice
-     (2)- Water
-     (3)- Vegetation
-     (4)- Rock
+     * (0)- Clean ice
+     * (1)- Debris-covered ice
+     * (2)- Water
+     * (3)- Vegetation
+     * (4)- Rock
+       
 4. **Machine learning implementation**
    Random Forest (Google earth engine)
 
