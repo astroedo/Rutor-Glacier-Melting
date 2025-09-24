@@ -19,7 +19,7 @@ Analysis of glacier retreat in the Italian Alps using Random Forest and Multi-La
 - 
 **Rutor Glacier, Graian Alps** (45.67°N, 6.98°E)
 - Elevation range: 2,400-3,400m
-- Area: ~8 km² (historically)
+- Area: ~8 km² 
 - Located on Italy-France border
 - Significant retreat documented in recent decades
 
