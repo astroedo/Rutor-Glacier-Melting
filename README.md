@@ -46,7 +46,7 @@ Analysis of glacier retreat in the Italian Alps using Random Forest and Multi-La
 4. **Machine learning implementation**
    Random Forest (Google earth engine)
 
-       ''' javascript
+       ''' 
        var classifier = ee.Classifier.smileRandomForest({
         numberOfTrees: 110,
         seed: 42
@@ -57,7 +57,7 @@ Analysis of glacier retreat in the Italian Alps using Random Forest and Multi-La
        });
    Multi-Layer Perceptron (Google Colab)
 
-       '''python 
+       ''' 
        mlp_classifier = MLPClassifier(
         hidden_layer_sizes=(128, 64, 32),
         activation='relu',
