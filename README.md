@@ -5,7 +5,7 @@
 [![Earth Engine](https://img.shields.io/badge/Google%20Earth%20Engine-JavaScript-green.svg)](https://earthengine.google.com/)
 
 ## Project Overview
-This repository contains the codebase for analyzing the retreat of the Rutor Glacier (Italian Alps) using satellite imagery. The study compares classical Machine Learning (Random Forest) and Deep Learning (Multi-Layer Perceptron, 1D Convolutional Neural Networks) approaches to classify temporal changes over a 40-year period (1984–2024). 
+This repository contains the codebase for analyzing the retreat of the Rutor Glacier (Italian Alps) using satellite imagery. The study compares classical Machine Learning (Random Forest) and Deep Learning (Multi-Layer Perceptron, 1D Convolutional Neural Networks) approaches to classify temporal changes over a 40-year period (1984–2024).
 
 The primary goals are:
 1. Track ice loss and quantify the retreat.
@@ -14,17 +14,72 @@ The primary goals are:
 
 ## Repository Structure
 
-    ├── data/                   # Training and testing datasets (CSV)
-    │   ├── Training_Set_75_Percent.csv
-    │   └── Testing_Set_25_Percent.csv
-    ├── docs/                   # Project reports and documentation
-    ├── presentation/           # Slides and presentation materials
-    ├── src/                    # Source code
-    │   ├── data_collection/    # Google Earth Engine (GEE) scripts for data extraction
-    │   └── models/             # Jupyter Notebooks for model training and evaluation (CNN, MLP)
-    ├── Result/                 # Output plots (ROC curves, metrics)
-    ├── requirements.txt        # Python dependencies
-    └── README.md
+```
+├── data/                       # Training and testing datasets (CSV)
+│   ├── Training_Set_75_Percent.csv
+│   ├── Testing_Set_25_Percent.csv
+│   └── composites/             # GeoTIFF composites exported from GEE (for inference)
+├── docs/                       # Project reports and documentation
+├── presentation/               # Slides and presentation materials
+├── src/
+│   ├── data_collection/
+│   │   └── GEE_Script.js      # Google Earth Engine script for data extraction
+│   └── models/
+│       ├── train.py            # Model training (CNN / MLP / RF)
+│       ├── predict.py          # Inference on GeoTIFF composites
+│       ├── CNN_Rutor.ipynb     # CNN notebook (reference)
+│       └── MLP_Rutor.ipynb     # MLP notebook (reference)
+├── Result/                     # Saved models, scaler, and output plots
+├── requirements.txt
+└── README.md
+```
+
+## Quick Start
+
+### 1. Environment
+
+```bash
+python -m venv venv
+source venv/bin/activate        # macOS / Linux
+pip install -r requirements.txt
+```
+
+### 2. GEE Authentication (only needed for data extraction)
+
+```bash
+earthengine authenticate
+```
+
+Run `src/data_collection/GEE_Script.js` in the [Earth Engine Code Editor](https://code.earthengine.google.com/) to export the CSV datasets and composite GeoTIFFs.
+
+> If you already have the CSV files in `data/` and composites in `data/composites/`, skip this step.
+
+### 3. Train Models
+
+```bash
+# Train all models (CNN + MLP + RF)
+python src/models/train.py --model all --epochs 200
+
+# Or train a single model
+python src/models/train.py --model cnn --epochs 200
+python src/models/train.py --model mlp
+python src/models/train.py --model rf
+```
+
+Trained models (`cnn_model.keras`, `mlp_model.pkl`, `rf_model.pkl`), the fitted `scaler.pkl`, and evaluation plots are saved to `Result/`.
+
+### 4. Inference
+
+```bash
+# Classify composites using the trained CNN
+python src/models/predict.py --input data/composites/ --output results/
+
+# Use a different model
+python src/models/predict.py --input data/composites/ --output results/ --model mlp
+python src/models/predict.py --input data/composites/ --output results/ --model rf
+```
+
+Classification GeoTIFFs and temporal evolution plots are saved to the `--output` directory.
 
 ## Dataset & Features
 - **Satellite Data**: Landsat 5 (TM) and 8 (OLI/TIRS), late summer acquisitions to minimize snow cover.
