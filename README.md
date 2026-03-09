@@ -26,9 +26,7 @@ The primary goals are:
 │   │   └── GEE_Script.js      # Google Earth Engine script for data extraction
 │   └── models/
 │       ├── train.py            # Model training (CNN / MLP / RF)
-│       ├── predict.py          # Inference on GeoTIFF composites
-│       ├── CNN_Rutor.ipynb     # CNN notebook (reference)
-│       └── MLP_Rutor.ipynb     # MLP notebook (reference)
+│       └── predict.py          # Inference on GeoTIFF composites
 ├── Result/                     # Saved models, scaler, and output plots
 ├── requirements.txt
 └── README.md
