@@ -42,17 +42,7 @@ source venv/bin/activate        # macOS / Linux
 pip install -r requirements.txt
 ```
 
-### 2. GEE Authentication (only needed for data extraction)
-
-```bash
-earthengine authenticate
-```
-
-Run `src/data_collection/GEE_Script.js` in the [Earth Engine Code Editor](https://code.earthengine.google.com/) to export the CSV datasets and composite GeoTIFFs.
-
-> If you already have the CSV files in `data/` and composites in `data/composites/`, skip this step.
-
-### 3. Train Models
+### 2. Train Models
 
 ```bash
 # Train all models (CNN + MLP + RF)
@@ -66,7 +56,7 @@ python src/models/train.py --model rf
 
 Trained models (`cnn_model.keras`, `mlp_model.pkl`, `rf_model.pkl`), the fitted `scaler.pkl`, and evaluation plots are saved to `Result/`.
 
-### 4. Inference
+### 3. Inference
 
 ```bash
 # Classify composites using the trained CNN
